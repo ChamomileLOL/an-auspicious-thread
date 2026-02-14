@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iitb-thread-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: auspicious-thread
+  template:
+    metadata:
+      labels:
+        app: auspicious-thread
+    spec:
+      containers:
+      - name: thread-app
+        image: iitb-auspicious-thread:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3011
+        envFrom:
+        - configMapRef:
+            name: iitb-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iitb-thread-service
+spec:
+  type: NodePort
+  selector:
+    app: auspicious-thread
+  ports:
+    - port: 3011
+      targetPort: 3011
+      nodePort: 30011
