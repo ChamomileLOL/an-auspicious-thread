@@ -4,8 +4,8 @@ metadata:
   name: iitb-config
 data:
   IITB_PRIME_PORT: "3011"
-  PRIVILEGE_LEVEL: "O"
+  PRIVILEGE_LEVEL: "0"
   IITB_STRICT_EQUALITY_HASH: "fe0911e2f41f956d77e3f7aa218db9e2f20e1ba3914fb86dabd225875ca871c3"
-  # Replace with your actual Atlas string from Phase 1/Step 3 screenshots
-  DB_CONNECTION_STRING: "mongodb+srv://iitb_admin:strict_equality_123@cluster0.qrbwsut.mongodb.net/auspicious_thread?retryWrites=true&w=majority"
+  # SECURED: Actual string moved to Render/K8s Secrets
+  DB_CONNECTION_STRING: "${DB_CONNECTION_STRING}"
   WEB3_PROVIDER_URI: "http://host.docker.internal:8545"
