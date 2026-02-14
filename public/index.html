@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IITB | Auspicious Thread</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0a0a0b; color: #e2e2e2; font-family: 'Space Grotesk', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 20px; backdrop-filter: blur(10px); width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: #00ffaa; margin-bottom: 1rem; }
+        .status-badge { background: #00ffaa22; color: #00ffaa; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; border: 1px solid #00ffaa; }
+        .data-box { text-align: left; margin-top: 2rem; font-size: 0.8rem; }
+        .label { color: #888; margin-top: 10px; display: block; text-transform: uppercase; }
+        .value { color: #fff; word-break: break-all; font-family: monospace; }
+        button { background: #00ffaa; color: #000; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 2rem; width: 100%; transition: 0.3s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,255,170,0.4); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">AUSPICIOUS THREAD</div>
+        <div id="status">Connecting to Blockchain...</div>
+        
+        <div class="data-box">
+            <span class="label">Block Hash</span>
+            <div id="blockHash" class="value">---</div>
+            
+            <span class="label">Required Wei</span>
+            <div id="wei" class="value">---</div>
+            
+            <span class="label">Signature</span>
+            <div id="sig" class="value">---</div>
+        </div>
+
+        <button onclick="fetchData()">RE-VERIFY THREAD</button>
+    </div>
+
+    <script>
+        async function fetchData() {
+            const btn = document.querySelector('button');
+            btn.innerText = "VERIFYING...";
+            try {
+                const response = await fetch('/api/v1/verify-thread');
+                const data = await response.json();
+                document.getElementById('status').innerHTML = '<span class="status-badge">' + data.status + '</span>';
+                document.getElementById('blockHash').innerText = data.blockHash;
+                document.getElementById('wei').innerText = data.requiredWei;
+                document.getElementById('sig').innerText = data.directorSignature;
+            } catch (err) {
+                document.getElementById('status').innerText = "Verification Offline";
+            }
+            btn.innerText = "RE-VERIFY THREAD";
+        }
+        window.onload = fetchData;
+    </script>
+</body>
+</html>

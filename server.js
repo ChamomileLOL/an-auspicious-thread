@@ -34,7 +34,6 @@ if (process.env.IITB_STRICT_EQUALITY_HASH !== REQUIRED_HASH) {
 }
 
 // 4. THE CONNECTION
-// We enforce a strict connection timeout. Laziness is not tolerated.
 const dbOptions = {
     serverSelectionTimeoutMS: 5000, 
     socketTimeoutMS: 45000,
@@ -49,27 +48,23 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, dbOptions)
     .catch(err => {
         console.error(`[FATAL]: Database Connection Failed.`);
         console.error(`REASON: ${err.message}`);
-        console.error("ADVICE: Check your IP Whitelist on Atlas or your Password.");
     });
-//--- NEW ROUTE INTEGRATION ---
+
+// --- NEW ROUTE INTEGRATION ---
 const meritController = require('./controllers/meritController');
 
-// The Middleware Trap: Strict JSON only.
+// Middleware
 app.use(express.json());
 
-// The Route
+// 5. STATIC ASSET SERVING
+// This line tells Express to serve your HTML dashboard from the 'public' folder
+app.use(express.static('public'));
+
+// 6. API ROUTES
 app.get('/api/v1/verify-thread', meritController.verifyThread);
-// --- THE WELCOME MAT (New Addition) ---
-app.get('/', (req, res) => {
-    res.json({
-        status: "ONLINE",
-        message: "IIT Bombay Auspicious Thread is Active.",
-        candidate: "Xavier",
-        timestamp: new Date().toISOString(),
-        instructions: "Visit /api/v1/verify-thread to attempt degree verification."
-    });
-});
-// --------------------------------------
+
+// Note: The previous app.get('/') has been removed to allow express.static 
+// to serve index.html as the primary landing page.
 
 function startServer() {
     app.listen(PORT, () => {
