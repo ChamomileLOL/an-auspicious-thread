@@ -59,6 +59,18 @@ app.use(express.json());
 
 // The Route
 app.get('/api/v1/verify-thread', meritController.verifyThread);
+// --- THE WELCOME MAT (New Addition) ---
+app.get('/', (req, res) => {
+    res.json({
+        status: "ONLINE",
+        message: "IIT Bombay Auspicious Thread is Active.",
+        candidate: "Xavier",
+        timestamp: new Date().toISOString(),
+        instructions: "Visit /api/v1/verify-thread to attempt degree verification."
+    });
+});
+// --------------------------------------
+
 function startServer() {
     app.listen(PORT, () => {
         console.log(`\n[SUCCESS]: Server is running on STRICT PORT ${PORT}`);
