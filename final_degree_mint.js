@@ -25,3 +25,4 @@ async function mintDegree() {
     console.log(`[TRANSACTION HASH]: ${receipt.transactionHash}`);
     console.log(`[VERIFY ON ETHERSCAN]: https://sepolia.etherscan.io/tx/${receipt.transactionHash}`);
 }
+mintDegree().catch(console.error);
