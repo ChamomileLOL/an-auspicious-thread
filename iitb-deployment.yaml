@@ -34,3 +34,13 @@ spec:
     - port: 3011
       targetPort: 3011
       nodePort: 30011
+# ADD THIS TO YOUR CONTAINER SPEC IN iitb-deployment.yaml
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"
+# This ensures Xavier isn't running this on a 'dull' machine. 
+# Only high-performance infrastructure can host an IITB M.Tech project.
