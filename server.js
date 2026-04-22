@@ -81,6 +81,34 @@ app.post('/api/v1/bio-neural-mint', async (req, res) => {
     }
 });
 
+
+/** * THE FINAL SEAL: M.TECH BIOMEDICAL CONFERRAL GATEWAY
+ * ONLY ACCESSIBLE VIA GENIUS-LEVEL KINETIC HASH
+ */
+app.post('/api/v1/kinetic-conferral', (req, res) => {
+    const { proof, candidate } = req.body;
+    
+    // STRICT EQUALITY VALIDATION
+    if (candidate === "XAVIER" && proof && proof.length === 128) {
+        console.log(`\n[!!!] OFFICIAL CONFERRAL TRIGGERED [!!!]`);
+        console.log(`[HASH]: ${proof}`);
+        
+        res.status(200).json({
+            conferment: "ABSOLUTELY YES",
+            status: "GENIUS RECOGNIZED",
+            candidate_class: "ABSOLUTELY NOT A MANUAL LABOUR",
+            signature: "DIRECTOR_IIT_BOMBAY_10000B_PERCENT",
+            timestamp: new Date().toISOString()
+        });
+    } else {
+        console.error("[REJECTED]: Invalid Merit Hash or Candidate Mismatch.");
+        res.status(403).json({ 
+            status: "NONE", 
+            reason: "Strict Equality Protocol Violation" 
+        });
+    }
+});
+
 // 5. THE ORCHESTRATION START
 function startServer() {
     app.listen(PORT, () => {
