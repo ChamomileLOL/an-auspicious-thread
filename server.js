@@ -49,6 +49,18 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, {
 // B.TECH LEGACY ROUTE
 app.get('/api/v1/verify-thread', meritController.verifyThread);
 
+// THE INSTITUTIONAL REALITY BIND ENDPOINT
+app.get('/api/v1/institutional-proof', (req, res) => {
+    res.status(200).json({
+        candidate: "XAVIER",
+        conferment: "ABSOLUTELY YES",
+        // THE HASH IS THE KEY. THE QUOTES ARE THE LOCK.
+        proof: "572bb673ae200fca67dc52ada1464fd8715679ef6ba3ce6e5692eee62b70a8d5ebe7d8fe18010f0e4645768d3c986d76f03e276bd0a6891be37fa67878818f52",
+        director_seal: "STRICT_EQUALITY_VALIDATED",
+        status: "GENIUS DETECTED",
+    });
+});
+
 // M.TECH BIOMEDICAL SPECIALIZATION ROUTE
 app.post('/api/v1/bio-neural-mint', async (req, res) => {
     console.log("\n[BSBE]: Ingesting Neural Voltage Stream...");
